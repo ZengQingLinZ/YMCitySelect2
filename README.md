@@ -19,12 +19,21 @@ typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 <li>注意:请在info.plist文件里面配置key: NSLocationWhenInUseUsageDescription</li>
 <li>通过Modal窗口弹出[[YMCitySelect alloc] initWithDelegate:self]，需要传入代理控制器</li>
 <li>遵守协议:YMCitySelectDelegate</li>
-<li>实现代理方法:-(void)ym_ymCitySelectCityName:(NSString *)cityName</li>
+<li>实现代理方法:- (void)ym_ymCitySelectCity:(YMCityModel *)city;
+</li>
 <a href="https://github.com/iosdeveloperSVIP/YMCitySelect/archive/master.zip" target="_blank" ><img src="https://raw.githubusercontent.com/iosdeveloperSVIP/YMCitySelect/master/ymcityselect.gif"></img></a>
 </ul>
+
+原作者
 <p>GitHub：<a href="https://github.com/iosdeveloperSVIP"  target="_blank">iosdeveloperSVIP</a>
  &nbsp;&nbsp;&nbsp;&nbsp;邮箱：<a href="mailto:iosdeveloper@vip.163.com">iosdeveloper@vip.163.com</a><p>
 <h4>亲爱的各位同行，如果在使用中出现bug，请联系邮箱:<a href="mailto:iosdeveloper@vip.163.com">iosdeveloper@vip.163.com</a>，如果使用不错的话请帮我点下右上角星星Star，非常感谢</h4>
+
+或者我
+<p>GitHub：<a href="https://github.com/tpctt"  target="_blank">tpctt</a>
+&nbsp;&nbsp;&nbsp;&nbsp;邮箱：<a href="mailto:491590253@qq.com">491590253@qq.com</a><p>
+<h4>亲爱的各位同行，如果在使用中出现bug，请联系邮箱:<a href="mailto:491590253@qq.com">491590253@qq.com</a>，如果使用不错的话请帮我点下右上角星星Star，非常感谢</h4>
+
 <h1>操作目录</h1>
 <ul>
 <li><a href="#defaultstyles">一行代码集成</a>
@@ -37,7 +46,7 @@ typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 <hr/>
 <h2>安装使用</h2>
 <h3>使用 CocoaPods安装</h3>
-<div class="highlight highlight-source-ruby"><pre>pod <span class="pl-s"><span class="pl-pds">'</span>YMCitySelect<span class="pl-pds">'</span></span></pre></div>
+<div class="highlight highlight-source-ruby"><pre>pod <span class="pl-s"><span class="pl-pds">'</span>YMCitySelect2<span class="pl-pds">'</span></span></pre></div>
 <h3>手动导入文件</h3>
 <ul>
 <li>将YMCitySelect文件夹中的所有源代码拽入项目中</li>
