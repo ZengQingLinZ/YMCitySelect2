@@ -58,6 +58,7 @@ typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 [self presentViewController:[[YMCitySelect alloc] initWithDelegate:self] animated:YES completion:nil];
 <br>//通过Modal弹出城市控制器，并传入代理控制器
 <br>YMCitySelectDelegate //请遵守协议
-<br>-(void)ym_ymCitySelectCityName:(NSString *)cityName
+<br>//-(void)ym_ymCitySelectCityName:(NSString *)cityName
+<br>- (void)ym_ymCitySelectCity:(YMCityModel *)city;
 <br>//请实现代理方法cityName就是返回的城市名</div>
 <h4>亲爱的各位同行，如果你已经浏览到这，请帮我点下右上角星星Star，非常感谢</h4>
