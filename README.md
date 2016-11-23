@@ -4,7 +4,12 @@
 <li>修改: 在原来的仓库的基础上,将 city 添加id属性, districts(辖区列表) 由原来的string 类型 改动为 city 的 model 类型,,   
 之前的协议和其他代理 都是用string 传输的,现在改为 city 的 model 传递,你可以通过继承 YMCityModel 来实现更多的属性 和功能,,,, 注意,自定义的 citymodel 请实现 NSCoding 的协议, </li>
 <li>原来的城市显示数据都是 plist 获取的,现在改为可以外部传入合适的对象进入,没有传入的时候就是以前的 plist 数据 , 使用方法是 
-
+[![AppVeyor](https://img.shields.io/appveyor/ci/gruntjs/grunt.svg?maxAge=2592000)](https://github.com/CoderZhuXH/XHLaunchAd)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/CoderZhuXH/XHLaunchAd)
+[![Version Status](https://img.shields.io/cocoapods/v/XHLaunchAd.svg?style=flat)](http://cocoadocs.org/docsets/XHLaunchAd)
+[![Support](https://img.shields.io/badge/support-iOS%207%2B-brightgreen.svg)](https://github.com/CoderZhuXH/XHLaunchAd)
+[![Pod Platform](https://img.shields.io/cocoapods/p/XHLaunchAd.svg?style=flat)](http://cocoadocs.org/docsets/XHLaunchAd/)
+[![Pod License](https://img.shields.io/cocoapods/l/XHLaunchAd.svg?style=flat)](https://github.com/CoderZhuXH/XHLaunchAd/blob/master/LICENSE)
 typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 ///获取城市数据
 @property (copy,nonatomic) GetDataSourceBlock getGroupBlock;
