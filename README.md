@@ -1,19 +1,17 @@
 <h1>YMCitySelect</h1>
 <ul>
 <li>快速集成城市选择框架</li>
-<font color=#0099ff face="黑体"><li>修改: 在原来的仓库的基础上,将 city 添加id属性, districts(辖区列表) 由原来的string 类型 改动为 city 的 model 类型,,   
-之前的协议和其他代理 都是用string 传输的,现在改为 city 的 model 传递,你可以通过继承 YMCityModel 来实现更多的属性 和功能,,,, 注意,自定义的 citymodel 请实现 NSCoding 的协议, </li>
-<li>原来的城市显示数据都是 plist 获取的,现在改为可以外部传入合适的对象进入,没有传入的时候就是以前的 plist 数据 , 使用方法是 
+<li><font color=#0099ff face="黑体">修改: 在原来的仓库的基础上,将 city 添加id属性, districts(辖区列表) 由原来的string 类型 改动为 city 的 model 类型,,   
+之前的协议和其他代理 都是用string 传输的,现在改为 city 的 model 传递,你可以通过继承 YMCityModel 来实现更多的属性 和功能,,,, 注意,自定义的 citymodel 请实现 NSCoding 的协议,</font> </li>
+<li><font color=#0099ff face="黑体">原来的城市显示数据都是 plist 获取的,现在改为可以外部传入合适的对象进入,没有传入的时候就是以前的 plist 数据 ,  
+只需要传入一个 YMCityGroupsModel 对象的数组即可</font> 
+使用方法是
+</li>
 ````
 typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 ///获取城市数据
 @property (copy,nonatomic) GetDataSourceBlock getGroupBlock;
 ````
-
-只需要传入一个 YMCityGroupsModel 对象的数组即可
-
-</li>
-</font>
 
 <li>支持首字母拼音查找城市、全拼查找城市、字体查找城市</li>
 <li></li>
