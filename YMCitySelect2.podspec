@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                  = "YMCitySelect2"
-  s.version               = "1.4.3"
+  s.version               = "1.4.4"
   s.summary               = "选择城市的 pod , 这个版本 支持横竖屏切换,支持更多属性设置和屏幕适配"
   s.homepage              = "https://github.com/tpctt/YMCitySelect2"
   s.social_media_url      = "https://github.com/tpctt/YMCitySelect2"

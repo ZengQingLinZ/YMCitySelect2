@@ -28,8 +28,8 @@
     YMSearchBar *_ym_searchBar;
     UITableView *_ym_tableView;
     UIButton *_ym_cover;
-   // UILabel *_ym_selectCity;
-//    UIView *_ym_navView;
+    // UILabel *_ym_selectCity;
+    //    UIView *_ym_navView;
     
     ///分组城市
     NSMutableArray *_ym_ctiyGroups;
@@ -78,13 +78,13 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 
 -(YMCitySearch *)ym_citySearch{
     if (!_ym_citySearch) {
-                YMCitySearch *ym_citySearchCtrl = [YMCitySearch new];
-                ym_citySearchCtrl.ym_cityArray = [self ym_allCtiys];
-
-                [self addChildViewController:ym_citySearchCtrl];
-                [self.view addSubview:ym_citySearchCtrl.view];
-                ym_citySearchCtrl.view.frame = CGRectMake(0, 64, self.view.ym_width, self.view.ym_height - 64);
-                _ym_citySearch = ym_citySearchCtrl;
+        YMCitySearch *ym_citySearchCtrl = [YMCitySearch new];
+        ym_citySearchCtrl.ym_cityArray = [self ym_allCtiys];
+        
+        [self addChildViewController:ym_citySearchCtrl];
+        [self.view addSubview:ym_citySearchCtrl.view];
+        ym_citySearchCtrl.view.frame = CGRectMake(0, 64, self.view.ym_width, self.view.ym_height - 64);
+        _ym_citySearch = ym_citySearchCtrl;
         //约束
         {
             
@@ -97,7 +97,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
             //        self.view .translatesAutoresizingMaskIntoConstraints = NO;
             
             
-           
+            
             
             
             NSLayoutConstraint *leftC =
@@ -153,9 +153,9 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
             
         }
         
-            }
+    }
     
-            return _ym_citySearch;
+    return _ym_citySearch;
     
 }
 
@@ -164,7 +164,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     if (self) {
         self.ymDelegate = targe;
         self.textColor = [UIColor blackColor];
-
+        
     }
     return self;
 }
@@ -178,12 +178,17 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     [self ym_setNavView];
     [self ym_setSearchBar];
     [self ym_setTableView];
-
+    
     [self ym_setCityGroups];
-    [self ym_setCityNames];
-
     [self ym_setLocationManager];
-    [self ym_setcationCityName];
+    
+    if (self.hideAddtionCitys) {
+        
+    }else{
+        [self ym_setLastCityNames];
+        [self ym_setLocationCityName];
+        
+    }
     
     [self addConstraint];
     
@@ -200,18 +205,18 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     _ym_searchBar.delegate = self;
     
     [self.view addSubview:_ym_searchBar];
-
+    
     
     
 }
 
 -(void)ym_setNavView{
-  
+    
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
     if (self.closeBtnImage) {
         [closeBtn setImage:self.closeBtnImage forState:UIControlStateNormal];
-//        [closeBtn setImage:self.closeBtnImage forState:UIControlStateHighlighted];
+        //        [closeBtn setImage:self.closeBtnImage forState:UIControlStateHighlighted];
         
     }else{
         [closeBtn setImage:[[UIImage imageNamed:@"YMCitySelect.bundle/btn_navigation_close_hl"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal] forState:UIControlStateNormal];
@@ -221,10 +226,10 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     
     if (self.closeBtnAct && self.closeBtnOwner ) {
         [closeBtn addTarget:self.closeBtnOwner action:self.closeBtnAct forControlEvents:UIControlEventTouchUpInside];
-
+        
     }else{
         [closeBtn addTarget:self action:@selector(closeBtnClick) forControlEvents:UIControlEventTouchUpInside];
-
+        
     }
     
     
@@ -232,7 +237,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     closeBtn.ym_x = 5;
     
     
-//    closeBtn.backgroundColor = [UIColor redColor];
+    //    closeBtn.backgroundColor = [UIColor redColor];
     
     
     
@@ -249,7 +254,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 -(void)closeBtnClick{
     if (self.navigationController) {
         [self.navigationController dismissViewControllerAnimated:YES completion:nil];
-
+        
     }else{
         [self dismissViewControllerAnimated:YES completion:nil];
         
@@ -270,7 +275,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
         _ym_ctiyGroups = [NSMutableArray arrayWithCapacity:tempArray.count];
         [tempArray enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             YMCityGroupsModel *cityGroupModel = [[YMCityGroupsModel alloc] init];
-//            [cityGroupModel setValuesForKeysWithDictionary:obj];
+            //            [cityGroupModel setValuesForKeysWithDictionary:obj];
             cityGroupModel.title = [obj objectForKey:@"title"];
             
             
@@ -298,7 +303,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     }
     
 }
--(void)ym_setCityNames{
+-(void)ym_setLastCityNames{
     [self setUpCityNames];
     if (self.ym_cityNames.count) {
         YMCityGroupsModel *ymcityGroupsModel = [[YMCityGroupsModel alloc] init];
@@ -340,7 +345,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     if([_ym_tableView respondsToSelector:@selector(setSectionIndexColor:)]) {
         _ym_tableView.sectionIndexBackgroundColor = [UIColor clearColor];
         _ym_tableView.sectionIndexTrackingBackgroundColor = [UIColor clearColor];
-         
+        
         
     }
 }
@@ -350,15 +355,15 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     
     //search
     {
- 
+        
         UIView *view =  _ym_searchBar;
-    
+        
         [self.view addSubview:view];
         
         
         view.translatesAutoresizingMaskIntoConstraints = NO;
-//        self.view .translatesAutoresizingMaskIntoConstraints = NO;
-       
+        //        self.view .translatesAutoresizingMaskIntoConstraints = NO;
+        
         
         NSLayoutConstraint *heightC =
         [NSLayoutConstraint constraintWithItem:view
@@ -376,7 +381,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
                                      attribute:NSLayoutAttributeWidth
                                     multiplier:1
                                       constant:0];
-
+        
         
         NSLayoutConstraint *leftC =
         [NSLayoutConstraint constraintWithItem:view
@@ -419,9 +424,9 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
         ///约束
         [self.view addConstraints:@[ topC,leftC,rightC ]];
         
-    
-     
-
+        
+        
+        
     }
     //TABLE
     {
@@ -435,7 +440,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
         //        self.view .translatesAutoresizingMaskIntoConstraints = NO;
         
         
-      
+        
         
         
         NSLayoutConstraint *leftC =
@@ -500,7 +505,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     
     
     [_ym_locationManager startUpdatingLocation];
- 
+    
 }
 -(void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
@@ -550,7 +555,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     
 }
 
--(void)ym_setcationCityName{
+-(void)ym_setLocationCityName{
     YMCityGroupsModel *ymcityGroupsModel = [[YMCityGroupsModel alloc] init];
     ymcityGroupsModel.title = @"定位";
     _ym_locationcityArry = [NSMutableArray array];
@@ -567,15 +572,15 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     }
     [self ym_setCover];
     [UIView animateWithDuration:0.5 animations:^{
-    //    _ym_navView.ym_y = -64;
-//        _ym_searchBar.ym_y = 0;
-//        _ym_tableView.ym_y = 64;
-//        _ym_tableView.ym_height = self.view.ym_height - 64;
+        //    _ym_navView.ym_y = -64;
+        //        _ym_searchBar.ym_y = 0;
+        //        _ym_tableView.ym_y = 64;
+        //        _ym_tableView.ym_height = self.view.ym_height - 64;
         _ym_cover.frame = _ym_tableView.frame;
         [_ym_searchBar setShowsCancelButton:YES animated:YES];
         
     } completion:^(BOOL finished) {
-//        _ym_navView.hidden = YES;
+        //        _ym_navView.hidden = YES;
     }];
 }
 
@@ -677,7 +682,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     
     
     [self ym_cancelBtnClick];
-
+    
     
     _ym_citySearch.view.hidden = YES;
     
@@ -688,13 +693,13 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 
 -(void)ym_cancelBtnClick{
     
-//    [UIView animateWithDuration:0.5 animations:^{
-//        _ym_cover.hidden = YES;
-//        [_ym_searchBar setShowsCancelButton:NO animated:YES];
-//        _ym_cover.frame = _ym_tableView.frame;
-//    }completion:^(BOOL finished) {
-//        _ym_cover.hidden = YES;
-//    }];
+    //    [UIView animateWithDuration:0.5 animations:^{
+    //        _ym_cover.hidden = YES;
+    //        [_ym_searchBar setShowsCancelButton:NO animated:YES];
+    //        _ym_cover.frame = _ym_tableView.frame;
+    //    }completion:^(BOOL finished) {
+    //        _ym_cover.hidden = YES;
+    //    }];
     
     
     _ym_cover.hidden = YES;
@@ -742,7 +747,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
         ym_cell.ym_cellDelegate = self;
         
         ym_cell.textColor = self.textColor;
-       
+        
         return ym_cell;
         
     }else{
@@ -783,11 +788,11 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     UILabel *ym_label = [[UILabel alloc] init];
     ym_label.textAlignment = NSTextAlignmentLeft;
     if( self.tableSectionTextColor ){
-         ym_label.textColor =self.tableSectionTextColor;
-
+        ym_label.textColor =self.tableSectionTextColor;
+        
     }else{
         ym_label.textColor = [UIColor blackColor];
-
+        
     }
     
     ym_label.font = [UIFont systemFontOfSize:16];
@@ -842,7 +847,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
             [_ym_searchBar becomeFirstResponder];
             
         }
-       
+        
         
     }else{
         
@@ -895,13 +900,13 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 -(CGFloat)ym_setcellHeightForRowAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat ym_height = 44;
     YMCityGroupsModel *cityGroupModel = _ym_ctiyGroups[indexPath.section];
-//    CGFloat ym_w = [YMTableViewCell get_ym_w];;
+    //    CGFloat ym_w = [YMTableViewCell get_ym_w];;
     CGFloat ym_h = [YMTableViewCell get_ym_h];;
     
     
     if (cityGroupModel.title.length > 1) {
         NSInteger count = cityGroupModel.cities.count;
-            ym_height = (count / 3 + (count % 3 == 0?0:1)) * (ym_h + 15) + 15;
+        ym_height = (count / 3 + (count % 3 == 0?0:1)) * (ym_h + 15) + 15;
     }
     return ym_height;
 }
@@ -910,7 +915,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 -(void)addSaveCityNames{
     [_ym_userDefaults setObject:[NSKeyedArchiver archivedDataWithRootObject:_ym_cityNames] forKey:@"ym_cityNames"];
     [_ym_userDefaults synchronize];
-    [self ym_setCityNames];
+    [self ym_setLastCityNames];
     [_ym_tableView reloadData];
 }
 
@@ -924,9 +929,9 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
     ///兼容之前的 strign
     if(data && ![data isKindOfClass:[NSArray class]]){
         self.ym_cityNames = [[NSKeyedUnarchiver unarchiveObjectWithData:data] mutableCopy];
-
+        
     }else{
-            [_ym_userDefaults removeObjectForKey:@"ym_cityNames"];
+        [_ym_userDefaults removeObjectForKey:@"ym_cityNames"];
     }
     
 }
@@ -956,7 +961,7 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
         }
         [[NSNotificationCenter defaultCenter] postNotificationName:@"ym_locationReloadData" object:nil];
     }];
-
+    
 }
 #pragma mark 旋转
 - (BOOL)shouldAutorotate {
