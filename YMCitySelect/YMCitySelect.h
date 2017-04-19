@@ -46,5 +46,6 @@ typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 @property (strong,nonatomic) UIColor *textColor;
 ///隐藏多余的城市,viewDidLoad 之前设置
 @property (assign,nonatomic) BOOL hideAddtionCitys;
+@property (assign,nonatomic) UIStatusBarStyle statusBarStyle;
 
 @end

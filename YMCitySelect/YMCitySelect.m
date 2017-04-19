@@ -975,5 +975,9 @@ static NSString *reuseIdentifier = @"ym_cellTwo";
 //- (UIStatusBarStyle)preferredStatusBarStyle {
 //    return self.topViewController.preferredStatusBarStyle;
 //}
-
+-(UIStatusBarStyle)preferredStatusBarStyle
+{
+    return _statusBarStyle;
+    
+}
 @end
