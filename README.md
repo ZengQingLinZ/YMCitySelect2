@@ -63,3 +63,107 @@ typedef  NSArray<YMCityGroupsModel *>*(^GetDataSourceBlock)(void) ;
 <br>- (void)ym_ymCitySelectCity:(YMCityModel *)city;
 <br>//请实现代理方法cityName就是返回的城市名</div>
 <h4>亲爱的各位同行，如果你已经浏览到这，请帮我点下右上角星星Star，非常感谢</h4>
+
+
+
+````
+-(void)gotoCitySelect:(void (^)(YMCitySelect *))block selectCity:(void (^)(TQBCityModel *))selectCityBlock
+{
+    
+    __weak Config *weak_self = self;
+    @weakify(self);
+    CityViewModel *vm = [[CityViewModel alloc] init];
+//    @weakify(vm);
+
+    /
+    /获取数据[[vm.command execute:nil]subscribeCompleted:^{
+        @strongify(self);
+//        @strongify(vm);
+        
+        YMCitySelect *citySelect =[[YMCitySelect alloc] init];
+        
+        UIImage *image = [UIImage imageNamed:@"tag_btn_close_white"];
+        citySelect.closeBtnImage = image;
+        
+       
+        citySelect.ymDelegate = weak_self;
+        
+        citySelect.sectionIndexColor = HEX_RGB(0x666666);
+        citySelect.textColor = HEX_RGB(0x666666);
+        
+        
+        citySelect.getGroupBlock = ^NSArray*(void){
+            return vm.cityGroups;
+            
+        };
+        
+        //配置动作
+        [[[self rac_signalForSelector:@selector(ym_ymCitySelectCity:) fromProtocol:@protocol(YMCitySelectDelegate)]flattenMap:^RACStream *(id value) {
+            
+            return [RACReturnSignal return:[(RACTuple*)value first]];
+            
+        } ] subscribeNext:^(id x) {
+            @strongify(self);
+
+            if(selectCityBlock){
+                selectCityBlock(x);
+                
+            }else{
+                self.cityModel = x;
+                
+            }
+            
+            
+            [citySelect dismissViewControllerAnimated:YES completion:^{
+                @strongify(self);
+                self.isSeletCity = YES;
+                
+            }];
+            
+        }];
+        
+        if (block) {
+            block(citySelect);
+        }
+        
+        ///配置颜色
+        BaseNavViewController *nav = [[BaseNavViewController alloc] initWithRootViewController:citySelect];
+        
+        UINavigationBar *bar = [nav navigationBar];
+        [bar gjw_setBackgroundColor:[UIColor fromHexValue:0x1a6cf0]];
+        [bar gjw_setTitleAttributes:@{NSForegroundColorAttributeName: HEX_RGB(0xffffff) ,NSFontAttributeName:[UIFont systemFontOfSize:18]    }];
+//        [bar gjw_setShadowImage:nil];
+//        [bar gjw_reset_backView_index];
+//        UIView *backView = [bar valueForKey:@"backView"];
+//        if (backView) {
+//            [backView.superview bringSubviewToFront:backView];
+//        }
+        
+    
+        for (UIView *view in bar.subviews ) {
+            NSString *classStr = NSStringFromClass(view.class);
+            if ([classStr isEqualToString:@"_UIBarBackground"]||
+                [classStr isEqualToString:@"_UINavigationBarBackground"])
+            {
+                view.hidden = 1;
+                break;
+            }
+        }
+        
+
+//        [citySelect stateBarAsWhite:YES];
+        citySelect.statusBarStyle = UIStatusBarStyleLightContent;
+        
+
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:nav  animated:NO completion:^{
+
+        }];
+    
+        
+        
+        
+    }];
+    
+    
+}
+````
